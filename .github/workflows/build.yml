@@ -26,8 +26,8 @@ jobs:
           - voyager
           # - voyager/gd32
         keymap:
-          - default
-          - oryx
+          # - default
+          # - oryx
           - fc
 
     steps:
@@ -43,16 +43,12 @@ jobs:
       run: |
         qmk compile -kb ${{ matrix.keyboard}} -km ${{ matrix.keymap }}
 
-
-  build:
-    name: 'QMK Userspace Build'
-    uses: qmk/.github/.github/workflows/qmk_userspace_build.yml@main
-    with:
-      qmk_repo: zsa/qmk_firmware
-      qmk_ref: main
-
-  publish:
-    name: 'QMK Userspace Publish'
-    uses: qmk/.github/.github/workflows/qmk_userspace_publish.yml@main
-    if: always() && !cancelled()
-    needs: build
+    - name: Archive firmware
+      uses: actions/upload-artifact@v3
+      continue-on-error: true
+      with:
+        name: ${{ matrix.keyboard }}_fc #${{ github.actor }}
+        path: |
+          *.hex
+          *.bin
+          *.uf2
