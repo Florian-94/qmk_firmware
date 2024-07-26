@@ -107,12 +107,12 @@ user_song_list.h
 /util/win_downloaded
 /users/
 /layouts/
-/keyboards/*
-!/keyboards/planck
-!/keyboards/moonlander
-!/keyboards/ergodox_ez
-!/keyboards/voyager
-/keyboards/**/keymaps/*
+# /keyboards/*
+# !/keyboards/planck
+# !/keyboards/moonlander
+# !/keyboards/ergodox_ez
+# !/keyboards/voyager
+# /keyboards/**/keymaps/*
 # clangd
 compile_commands.json
 .clangd/
