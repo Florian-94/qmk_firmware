@@ -44,10 +44,10 @@ jobs:
         qmk compile -kb ${{ matrix.keyboard}} -km ${{ matrix.keymap }}
 
     - name: Archive firmware
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       continue-on-error: true
       with:
-        name: ${{ matrix.keyboard }}_fc #${{ github.actor }}
+        name: ${{ matrix.keyboard }}_${{ github.actor }}
         path: |
           *.hex
           *.bin
