@@ -41,6 +41,7 @@ enum custom_keycodes {
   ME_COPY,
   ME_PASTE,
   ME_UNDO,
+  ME_LEFT_CTRL_GUI,
 
   //SHIFT LAYER
   ME_EXCL,
@@ -116,10 +117,10 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    KC_ESCAPE,      KC_B,           MT(MOD_LCTL, FR_EACU),KC_P,           KC_O,           FR_EGRV,                                        FR_CCIRC,       KC_V,           KC_D,           KC_L,           KC_J,           FR_Z,           
-    KC_TAB,         FR_A,           KC_U,           KC_I,           KC_E,           FR_COMM,                                        KC_C,           KC_T,           KC_S,           KC_R,           KC_N,           FR_M,           
-    KC_LEFT_SHIFT,  FR_AGRV,        KC_Y,           KC_X,           FR_DOT,         KC_K,                                           FR_APOS,        FR_Q,           KC_G,           KC_H,           KC_F,           KC_RIGHT_SHIFT, 
-    KC_LEFT_CTRL,   KC_LEFT_GUI,    KC_LEFT_ALT,    FR_W,           MO(1),          ST_MACRO_0,                                     ST_MACRO_1,     MO(2),          KC_COMMA,       KC_DELETE,      KC_BSPC,        MA_TOBASE,          
+    KC_ESCAPE,        KC_B,           MT(MOD_LCTL, FR_EACU),KC_P,           KC_O,           FR_EGRV,                                        FR_CCIRC,       KC_V,           KC_D,           KC_L,           KC_J,           FR_Z,           
+    KC_TAB,           FR_A,           KC_U,           KC_I,           KC_E,           FR_COMM,                                        KC_C,           KC_T,           KC_S,           KC_R,           KC_N,           FR_M,           
+    KC_LEFT_SHIFT,    FR_AGRV,        KC_Y,           KC_X,           FR_DOT,         KC_K,                                           FR_APOS,        FR_Q,           KC_G,           KC_H,           KC_F,           KC_RIGHT_SHIFT, 
+    ME_LEFT_CTRL_GUI, KC_LEFT_GUI,    KC_LEFT_ALT,    FR_W,           MO(1),          ST_MACRO_0,                                     ST_MACRO_1,     MO(2),          KC_COMMA,       KC_DELETE,      KC_BSPC,        MA_TOBASE,          
                                                     KC_SPACE,       LCTL(KC_P),                                     LCTL(LSFT(KC_P)),KC_SPACE
   ),
   [1] = LAYOUT_voyager(
@@ -232,6 +233,7 @@ if (record->event.pressed) {
       case ME_EURO: if (macos_mode)      OPTION(XKEY(X_RBRC))         else ALTGR(XKEY(X_E));        break;
       case ME_AT:   if (macos_mode)      XKEY(X_NUBS)                 else ALTGR(XKEY(X_0));        break;
       case ME_MINS: if (macos_mode)      XKEY(X_EQL)                  else XKEY(X_6);               break;
+      case ME_LEFT_CTRL_GUI: if (macos_mode) SEND_STRING(SS_DOWN(X_LGUI)) else SENS_STRING(SS_DOWN(X_LCTL)) break;   
       case ME_PSCR: if (macos_mode)      SHIFT(COMMAND(XKEY(X_4)))    else XKEY(X_PSCR);            break;
       case ME_CUT: if (macos_mode)       COMMAND(XKEY(X_X))           else CTRL(XKEY(X_X));               break;
       case ME_COPY: if (macos_mode)      COMMAND(XKEY(X_C))           else CTRL(XKEY(X_C));               break;
@@ -326,6 +328,11 @@ if (record->event.pressed) {
         break;
 
     }
+  }
+  if (record->event.released) { 
+      switch (keycode) {
+          case ME_LEFT_CTRL_GUI: if (macos_mode) SEND_STRING(SS_UP(X_LGUI)) else SENS_STRING(SS_UP(X_LCTL)) break;
+      }
   }
   return true;
 }
