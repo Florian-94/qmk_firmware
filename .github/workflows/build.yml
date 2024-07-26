@@ -17,17 +17,18 @@ jobs:
       fail-fast: false
       matrix:
         keyboard:
-          - ergodox_ez
-          - ergodox_ez/shine
-          - ergodox_ez/glow
-          - moonlander
-          - planck/ez
-          - planck/ez/glow
+          # - ergodox_ez
+          # - ergodox_ez/shine
+          # - ergodox_ez/glow
+          # - moonlander
+          # - planck/ez
+          # - planck/ez/glow
           - voyager
-          - voyager/gd32
+          # - voyager/gd32
         keymap:
           - default
           - oryx
+          - fc
 
     steps:
     - name: Checkout QMK Firmware
@@ -41,3 +42,17 @@ jobs:
       id: build
       run: |
         qmk compile -kb ${{ matrix.keyboard}} -km ${{ matrix.keymap }}
+
+
+  build:
+    name: 'QMK Userspace Build'
+    uses: qmk/.github/.github/workflows/qmk_userspace_build.yml@main
+    with:
+      qmk_repo: zsa/qmk_firmware
+      qmk_ref: main
+
+  publish:
+    name: 'QMK Userspace Publish'
+    uses: qmk/.github/.github/workflows/qmk_userspace_publish.yml@main
+    if: always() && !cancelled()
+    needs: build
