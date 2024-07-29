@@ -51,6 +51,7 @@ enum custom_keycodes {
   ME_LABK,
   ME_RABK,
   ME_HASH,
+  ME_SECT,
   ME_VSCODE_CTRL_P,
   ME_VSCODE_SHIFT_CTRL_P,
 
@@ -65,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_SPACE,       ME_VSCODE_CTRL_P,                                     ME_VSCODE_SHIFT_CTRL_P,KC_SPACE
   ),
   [1] = LAYOUT_voyager(
-    KC_TRANSPARENT, ME_HASH,        FR_EXLM,        ME_LCBR,        ME_RCBR,        ME_PIPE,                                        ME_TIL,         FR_7,           FR_8,           FR_9,           KC_KP_ASTERISK, ME_ASTR,        
+    KC_TRANSPARENT, ME_HASH,        ME_SECT,        ME_LCBR,        ME_RCBR,        ME_PIPE,                                        ME_TIL,         FR_7,           FR_8,           FR_9,           KC_KP_ASTERISK, ME_ASTR,        
     KC_TRANSPARENT, ME_AT,          FR_DLR,         FR_LPRN,        FR_RPRN,        FR_SLSH,                                        ME_RABK,        FR_4,           FR_5,           FR_6,           KC_KP_PLUS,     ME_MINS,        
     KC_TRANSPARENT, ME_UNDO,        ME_CUT,         ME_COPY,        ME_PASTE,       ME_BSLH,                                        ME_LABK,        FR_1,           FR_2,           FR_3,           KC_KP_SLASH,    FR_EQL,         
     KC_TRANSPARENT, ME_GRV,         KC_TRANSPARENT, FR_AMP,         KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, FR_0,           KC_DOT,         FR_COMM,        FR_PERC,        
@@ -204,7 +205,7 @@ if (record->event.pressed) {
       case ME_LABK:  if (macos_mode)  XKEY(X_GRV)               else XKEY(X_NUBS); break; // <
       case ME_RABK:  if (macos_mode)  SHIFT(XKEY(X_GRV))        else SHIFT(XKEY(X_NUBS)); break; // >
       case ME_HASH:  if (macos_mode)  SHIFT(XKEY(X_NUBS))       else ALTGR(XKEY(X_3)); break; // #
-      
+      case ME_SECT:   if (macos_mode)  XKEY(X_6)                else SHIFT(XKEY(X_SLSH)); break;// ALT 167 = §
       
       case MA_TOBASE:
         get_host_os(0, NULL);

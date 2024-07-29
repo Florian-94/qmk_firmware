@@ -1,3 +1,21 @@
+# Mes ajouts au fork de zsa
+Comme indiqué ci-dessous, ce repository est un fork du repo de zsa/qmk_firmware pour la modification de la configuration de mes claviers dans qmk et le build du binaire directement en utilisant les runners gitlab (donc aucune dépendance à installer sur son poste pour des modifications mineures).
+
+Les différences par rapport au code de zsa sont visibles ici : https://github.com/zsa/qmk_firmware/compare/firmware23...Florian-94:qmk_firmware:firmware23
+
+Pourquoi utiliser QMK plutôt que Oryx pour mes claviers zsa ?
+
+Je branche toujours mon clavier sur des ordinateurs ayant les layouts azerty. Sur certains ordinateurs ou serveurs d'entreprise, je ne peux pas changer de drivers. Je souhaitais également pouvoir brancher mon clavier sur mac ou pc, sans devoir modifier les layouts sur le mac (passage de FR à FRPC), ou changer de layer sur mon clavier (par exemple pour mes raccourcis de copier/coller qui ne sont pas les mêmes sur mac et pc).
+
+Je me suis beaucoup inspiré du code de parinacota pour les codes des touches (en supprimant toutes celles que je n'utilise pas) mais s'il vous en manque, regardez ici : https://github.com/parinacota/qmk_firmware/tree/b%C3%A9po_papillon53/keyboards/papillon53
+
+## Pour mettre à jour le clavier :
+- Modifier dans keybords/<votre clavier>/keymaps/<votre keymap>/keymap.c votre configuration.
+- Commiter et pousser votre modification sur le repo origin.
+- Récupérez le binaire crée : Allez dans "Actions", puis "Build firmware". Ou directement via ce lien : https://github.com/Florian-94/qmk_firmware/actions/workflows/build.yml . Cliquez sur le job correspondant à votre commit. Votre binaire (.bin) se trouve dans la partie "Artifacts". Téléchargez le.
+- Installez le logiciel "Keymapp" pour flasher votre clavier zsa avec le binaire que vous venez de télécharger.
+
+
 # ZSA's fork of QMK Firmware
 
 [![Current Version](https://img.shields.io/github/tag/zsa/qmk_firmware.svg)](https://github.com/zsa/qmk_firmware/tags)
