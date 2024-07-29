@@ -1,5 +1,6 @@
 # Mes ajouts au fork de zsa
-Comme indiqué ci-dessous, ce repository est un fork du repo de zsa/qmk_firmware pour la modification de la configuration de mes claviers dans qmk et le build du binaire directement en utilisant les runners gitlab (donc aucune dépendance à installer sur son poste pour des modifications mineures).
+Comme indiqué ci-dessous, ce repository est un fork du repo de zsa/qmk_firmware pour la modification de la configuration de mes claviers dans qmk 
+Pour être capable de modifier le clavier facilement sans installer les différentes dépendances de librairies nécessaires, j'ai également modifier les étapes des actions gitlab pour ajouter l'export du binaire généré.
 
 Les différences par rapport au code de zsa sont visibles ici : https://github.com/zsa/qmk_firmware/compare/firmware23...Florian-94:qmk_firmware:firmware23
 
@@ -11,10 +12,10 @@ Je me suis beaucoup inspiré du code de parinacota pour les codes des touches (e
 
 ## Pour mettre à jour le clavier :
 - Modifier dans keybords/<votre clavier>/keymaps/<votre keymap>/keymap.c votre configuration.
+- Ajouter une ligne correspondant à votre nouveau clavier dans .github/workflows/build.yml
 - Commiter et pousser votre modification sur le repo origin.
 - Récupérez le binaire crée : Allez dans "Actions", puis "Build firmware". Ou directement via ce lien : https://github.com/Florian-94/qmk_firmware/actions/workflows/build.yml . Cliquez sur le job correspondant à votre commit. Votre binaire (.bin) se trouve dans la partie "Artifacts". Téléchargez le.
 - Installez le logiciel "Keymapp" pour flasher votre clavier zsa avec le binaire que vous venez de télécharger.
-
 
 # ZSA's fork of QMK Firmware
 
