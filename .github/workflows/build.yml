@@ -22,7 +22,7 @@ jobs:
           # - ergodox_ez/glow
           # - moonlander
           # - planck/ez
-          # - planck/ez/glow
+          - planck/ez/glow
           - voyager
           # - voyager/gd32
         keymap:
