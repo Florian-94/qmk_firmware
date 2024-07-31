@@ -44,14 +44,13 @@ jobs:
         qmk compile -kb ${{ matrix.keyboard }} -km ${{ matrix.keymap }}
 
     - name: Replace slash character in matrix keyboard name # For planck/ez/glow
-      id: removslash
-      run: echo "::set-output name=ref_name::$(echo ${{ matrix.keyboard.ref_name }} | sed -e 's/\//_/')"
+      run: echo "NAME=$(echo ${{ matrix.keyboard }} | sed -e 's/\//_/')" >> $GITHUB_ENV
 
     - name: Archive firmware
       uses: actions/upload-artifact@v4
       continue-on-error: true
       with:
-        name: ${{ steps.removslash.outputs.ref_name }}_${{ github.actor }}
+        name: ${{ env.NAME }}_${{ github.actor }}
         path: |
           *.hex
           *.bin
