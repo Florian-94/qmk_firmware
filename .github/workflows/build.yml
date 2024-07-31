@@ -45,7 +45,7 @@ jobs:
 
     - name: Replace slash character in matrix keyboard name # For planck/ez/glow
       id: removslash
-      run: echo "::set-output name=ref_name::$(echo ${{ matrix.keyboard.ref_name }} | sed -e "s/\//_/"
+      run: echo "::set-output name=ref_name::$(echo ${{ matrix.keyboard.ref_name }} | sed -e 's/\//_/')"
 
     - name: Archive firmware
       uses: actions/upload-artifact@v4
