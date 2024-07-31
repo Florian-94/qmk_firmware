@@ -43,8 +43,8 @@ jobs:
       run: |
         qmk compile -kb ${{ matrix.keyboard }} -km ${{ matrix.keymap }}
 
-    - name: Replace slash character in matrix keyboard name # For planck/ez/glow
-      run: echo "NAME=$(echo ${{ matrix.keyboard }} | sed -e 's/\//_/')" >> $GITHUB_ENV
+    - name: Replace slash character in matrix keyboard name # For planck/ez/glow be transformed in planck_ez_glow
+      run: echo "NAME=$(echo ${{ matrix.keyboard }} | sed -e 's/\//_/g')" >> $GITHUB_ENV
 
     - name: Archive firmware
       uses: actions/upload-artifact@v4
