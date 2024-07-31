@@ -87,14 +87,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT_planck_grid(
     KC_TRANSPARENT, ME_HASH,        ME_SECT,        ME_LCBR,        ME_RCBR,        ME_PIPE,        ME_TIL,        FR_7,           FR_8,           FR_9,           KC_KP_ASTERISK, ME_ASTR,        
     KC_TRANSPARENT, ME_AT,          FR_DLR,         FR_LPRN,        FR_RPRN,        FR_SLSH,        ME_RABK,        FR_4,           FR_5,           FR_6,           KC_KP_PLUS,     ME_MINS,    
-    KC_TRANSPARENT, ME_UNDO,        ME_CUT,         ME_COPY,        ME_PASTE,       ME_BSLH,        ME_LABK,        FR_1,           FR_2,           FR_3,           KC_KP_SLASH,    FR_EQL,         
+    KC_TRANSPARENT, ME_UNDO,        ME_CUT,         ME_COPY,        ME_PASTE,       ME_BSLH,        ME_LABK,        FR_1,           FR_2,           FR_3,           KC_KP_SLASH,    ME_EQL,         
     KC_TRANSPARENT, FR_GRV,         KC_TRANSPARENT, FR_AMP,         KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, FR_0,           FR_DOT,         FR_COMM,        FR_PERC
   ),
 
   [_RAISE] = LAYOUT_planck_grid(
     KC_TRANSPARENT, KC_MS_WH_UP,    KC_HOME,        KC_MS_UP,       KC_END,         ME_EURO,        FR_UGRV,        KC_TAB,         KC_UP,          LSFT(KC_TAB),   KC_ENTER,       KC_PAGE_UP,     
     KC_TRANSPARENT, KC_MS_WH_DOWN,  KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    FR_COLN,        FR_CCED,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_BSPC,        KC_PGDN,        
-    KC_TRANSPARENT, FR_APOS,        FR_DQUO,        ME_LBRC,        ME_RBRC,        FR_SCLN,        ME_EXCL,        FR_MINS,        FR_UNDS,        FR_APOS,        KC_DELETE,      KC_TRANSPARENT, 
+    KC_TRANSPARENT, FR_APOS,        FR_DQUO,        ME_LBRC,        ME_RBRC,        FR_SCLN,        ME_EXCL,        ME_MINS,        ME_UNDS,        FR_APOS,        KC_DELETE,      KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN1,     KC_NO,          KC_TRANSPARENT, KC_MS_BTN2,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
   ),
 
@@ -207,7 +207,7 @@ if (record->event.pressed) {
       case ME_EXCL: if (macos_mode)      XKEY(X_8)           else XKEY(X_SLSH);   break; // !
   
     
-      case ME_BSLH: if (macos_mode)      OPTION(XKEY(X_DOT))    else UNSHIFT(ALTGR(XKEY(X_8))); break;
+      case ME_BSLH: if (macos_mode)   SHIFT(OPTION(XKEY(X_DOT)))    else ALTGR(XKEY(X_8)); break;
       case ME_GRV:    if (macos_mode) XGRV(X_SPC)               else WINALT2(9,6); break; // ALT 96 = ``
       case ME_TIL:   if (macos_mode)  XTILD(X_SPC)              else WINALT3(1,2,6); break; // ALT 126 = ~
       case ME_LCBR:  if (macos_mode)  OPTION(XKEY(X_5))         else ALTGR(XKEY(X_4)); break; // {

@@ -41,13 +41,17 @@ jobs:
     - name: Build
       id: build
       run: |
-        qmk compile -kb ${{ matrix.keyboard}} -km ${{ matrix.keymap }}
+        qmk compile -kb ${{ matrix.keyboard }} -km ${{ matrix.keymap }}
+
+    - name: Replace slash character in matrix keyboard name # For planck/ez/glow
+      id: removslash
+      run: echo "::set-output name=ref_name::$(echo ${{ matrix.keyboard.ref_name }} | sed -e "s/\//_/"
 
     - name: Archive firmware
       uses: actions/upload-artifact@v4
       continue-on-error: true
       with:
-        name: ${{ matrix.keyboard }}_${{ github.actor }}
+        name: ${{ steps.removslash.outputs.ref_name }}_${{ github.actor }}
         path: |
           *.hex
           *.bin
