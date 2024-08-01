@@ -23,10 +23,6 @@ uint32_t get_host_os(uint32_t trigger_time, void *cb_arg) {
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
-  ST_MACRO_0,
-  ST_MACRO_1,
-   
-
   MA_TOBASE,
   ME_EURO,
   ME_AT,
@@ -52,6 +48,8 @@ enum custom_keycodes {
   ME_RABK,
   ME_HASH,
   ME_SECT,
+  ME_VSCODE_COMMENT,
+  ME_VSCODE_UNCOMMENT,
   ME_VSCODE_CTRL_P,
   ME_VSCODE_SHIFT_CTRL_P,
 
@@ -62,9 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     KC_ESCAPE,        KC_B,           MT(MOD_LCTL, FR_EACU),KC_P,           KC_O,           FR_EGRV,                                        FR_CCIRC,       KC_V,           KC_D,           KC_L,           KC_J,           FR_Z,           
     KC_TAB,           FR_A,           KC_U,           KC_I,           KC_E,           FR_COMM,                                        KC_C,           KC_T,           KC_S,           KC_R,           KC_N,           FR_M,           
-    KC_LEFT_SHIFT,    FR_AGRV,        KC_Y,           KC_X,           FR_DOT,         KC_K,                                           FR_APOS,        FR_Q,           KC_G,           KC_H,           KC_F,           KC_RIGHT_SHIFT, 
-    KC_LEFT_CTRL,     KC_LEFT_GUI,    KC_LEFT_ALT,    FR_W,           MO(1),          ST_MACRO_0,                                     ST_MACRO_1,     MO(2),          KC_COMMA,       KC_DELETE,      KC_BSPC,        MA_TOBASE,          
-                                                    KC_SPACE,       ME_VSCODE_CTRL_P,                                     ME_VSCODE_SHIFT_CTRL_P,KC_SPACE
+    KC_LEFT_SHIFT,    FR_AGRV,        KC_Y,           KC_X,           FR_DOT,         KC_K,                                           FR_DQUO,        FR_Q,           KC_G,           KC_H,           KC_F,           KC_RIGHT_SHIFT, 
+    KC_LEFT_CTRL,     KC_LEFT_GUI,    KC_LEFT_ALT,    FR_W,           MO(1),          ME_VSCODE_UNCOMMENT,                            ME_VSCODE_COMMENT,     MO(2),          KC_COMMA,       KC_DELETE,      KC_BSPC,        MA_TOBASE,          
+                                                    KC_SPACE,       ME_VSCODE_CTRL_P,                              ME_VSCODE_SHIFT_CTRL_P,KC_SPACE
   ),
   [1] = LAYOUT_voyager(
     KC_TRANSPARENT, ME_HASH,        ME_SECT,        ME_LCBR,        ME_RCBR,        ME_PIPE,                                        ME_TIL,         FR_7,           FR_8,           FR_9,           KC_KP_ASTERISK, ME_ASTR,        
@@ -172,8 +170,8 @@ bool rgb_matrix_indicators_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 if (record->event.pressed) { 
     switch (keycode) {
-      case ST_MACRO_0: if (macos_mode) MAC_VSCODE_COMMENT() else WIN_VSCODE_COMMENT(); break;
-      case ST_MACRO_1: if (macos_mode) MAC_VSCODE_UNCOMMENT() else WIN_VSCODE_UNCOMMENT(); break;
+      case ME_VSCODE_COMMENT: if (macos_mode) MAC_VSCODE_COMMENT() else WIN_VSCODE_COMMENT(); break;
+      case ME_VSCODE_UNCOMMENT: if (macos_mode) MAC_VSCODE_UNCOMMENT() else WIN_VSCODE_UNCOMMENT(); break;
       case ME_VSCODE_CTRL_P: if (macos_mode) COMMAND(XKEY(X_P)) else CTRL(XKEY(X_P)); break;
       case ME_VSCODE_SHIFT_CTRL_P: if (macos_mode) SHIFT(COMMAND(XKEY(X_P))) else SHIFT(CTRL(XKEY(X_P))); break;
       case RGB_SLD: rgblight_mode(1); break;

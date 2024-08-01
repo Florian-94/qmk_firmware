@@ -12,6 +12,8 @@ bool macos_mode = false;
 
 enum planck_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
+  ME_VSCODE_COMMENT,
+  ME_VSCODE_UNCOMMENT,
   MA_TOBASE,
   ME_EURO,
   ME_AT,
@@ -76,12 +78,14 @@ enum planck_layers {
 #define MAC_VSCODE_UNCOMMENT() {SEND_STRING(SS_LGUI(SS_TAP(X_K)) SS_DELAY(100) SS_LGUI(SS_TAP(X_U)));}
 #define WIN_VSCODE_CTRL_P() {SEND_STRING(SS_LCTL(SS_TAP(X_P)) SS_DELAY(100) SS_LCTL(SS_TAP(X_C)));}
 
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_planck_grid(
-    KC_ESCAPE,      KC_B,           MT(MOD_LCTL, FR_EACU),KC_P,           KC_O,           FR_EGRV,        FR_CIRC,        KC_V,           KC_D,           KC_L,           KC_J,           FR_Z,           
-    KC_TAB,         FR_A,           KC_U,           KC_I,           KC_E,           FR_COMM,        KC_C,           KC_T,           KC_S,           KC_R,           KC_N,           FR_M,           
-    KC_LEFT_SHIFT,  MT(MOD_LSFT, FR_AGRV),KC_Y,           KC_X,           FR_DOT,         KC_K,           FR_APOS,        FR_Q,           KC_G,           KC_H,           KC_F,           KC_ENTER,       
-    KC_LEFT_CTRL,   KC_LEFT_GUI,    KC_LEFT_ALT,    FR_W,           MO(1),          KC_SPACE,       KC_NO,          MO(2),          KC_COMMA,       KC_DELETE,      KC_BSPC,        MA_TOBASE
+    KC_ESCAPE,      KC_B,           MT(MOD_LCTL, FR_EACU), KC_P,           KC_O,           FR_EGRV,        FR_CIRC,        KC_V,           KC_D,           KC_L,           KC_J,           FR_Z,           
+    KC_TAB,         FR_A,           KC_U,                  KC_I,           KC_E,           FR_COMM,        KC_C,           KC_T,           KC_S,           KC_R,           KC_N,           FR_M,           
+    KC_LEFT_SHIFT,  MT(MOD_LSFT,    FR_AGRV),KC_Y,         KC_X,           FR_DOT,         KC_K,           FR_DQUO,        FR_Q,           KC_G,           KC_H,           KC_F,           KC_ENTER,       
+    KC_LEFT_CTRL,   KC_LEFT_GUI,    KC_LEFT_ALT,           FR_W,           MO(1),          KC_SPACE,       KC_NO,          MO(2),          KC_COMMA,       KC_DELETE,      KC_BSPC,        MA_TOBASE
   ),
 
   [_LOWER] = LAYOUT_planck_grid(
@@ -100,14 +104,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_planck_grid(
     KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,         
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, ME_VSCODE_CTRL_P, KC_TRANSPARENT, KC_TRANSPARENT, ME_VSCODE_UNCOMMENT, ME_VSCODE_COMMENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     ME_VSCODE_SHIFT_CTRL_P,     KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,        
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
   ),
 
 };
-
-
 
 extern rgb_config_t rgb_matrix_config;
 
@@ -134,11 +136,11 @@ void keyboard_post_init_user(void) {
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     [0] = { {0,0,255}, {141,255,233}, {85,203,158}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {0,0,255}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {85,203,158}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {0,0,255}, {85,203,158}, {85,203,158}, {85,203,158}, {141,255,233}, {14,255,255}, {0,0,255}, {14,255,255}, {30,96,255}, {0,183,238}, {0,183,238}, {14,255,255} },
 
-    [1] = { {169,120,255}, {50,153,244}, {50,153,244}, {146,224,255}, {146,224,255}, {50,153,244}, {50,153,244}, {0,205,155}, {0,205,155}, {0,205,155}, {31,255,255}, {146,224,255}, {0,0,0}, {50,153,244}, {50,153,244}, {146,224,255}, {141,255,233}, {50,153,244}, {50,153,244}, {0,205,155}, {0,205,155}, {0,205,155}, {105,255,255}, {105,255,255}, {85,203,158}, {15,97,236}, {0,0,0}, {15,97,236}, {15,97,236}, {50,153,244}, {50,153,244}, {0,205,155}, {0,205,155}, {0,205,155}, {31,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {50,153,244}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,205,155}, {0,0,0}, {0,0,0}, {154,255,255} },
+    [1] = { {145,57,250}, {50,153,244}, {50,153,244}, {146,224,255}, {146,224,255}, {50,153,244}, {50,153,244}, {0,205,155}, {0,205,155}, {0,205,155}, {31,255,255}, {146,224,255}, {145,57,250}, {50,153,244}, {50,153,244}, {146,224,255}, {141,255,233}, {50,153,244}, {50,153,244}, {0,205,155}, {0,205,155}, {0,205,155}, {105,255,255}, {105,255,255}, {85,203,158}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {50,153,244}, {50,153,244}, {0,205,155}, {0,205,155}, {0,205,155}, {31,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {50,153,244}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,205,155}, {0,0,0}, {0,0,0}, {154,255,255} },
 
     [2] = { {0,0,0}, {0,0,0}, {31,255,255}, {31,255,255}, {31,255,255}, {141,255,233}, {141,255,233}, {85,203,158}, {32,176,255}, {85,203,158}, {0,0,255}, {31,255,255}, {0,0,0}, {0,0,0}, {31,255,255}, {31,255,255}, {31,255,255}, {141,255,233}, {141,255,233}, {32,176,255}, {32,176,255}, {32,176,255}, {0,204,255}, {31,255,255}, {85,203,158}, {141,255,233}, {141,255,233}, {146,224,255}, {146,224,255}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {141,255,233}, {0,204,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {31,255,255}, {0,0,0}, {31,255,255}, {0,0,0}, {0,0,0}, {0,0,0} },
 
-    [3] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {169,120,255}, {169,120,255}, {169,120,255}, {169,120,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+    [3] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {188,255,255}, {0,0,0}, {0,0,0}, {188,255,255}, {188,255,255}, {169,120,255}, {169,120,255}, {188,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
 };
 
@@ -188,8 +190,8 @@ bool rgb_matrix_indicators_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 if (record->event.pressed) { 
     switch (keycode) {
-      // case ST_MACRO_0: if (macos_mode) MAC_VSCODE_COMMENT() else WIN_VSCODE_COMMENT(); break;
-      // case ST_MACRO_1: if (macos_mode) MAC_VSCODE_UNCOMMENT() else WIN_VSCODE_UNCOMMENT(); break;
+      case ME_VSCODE_COMMENT: if (macos_mode) MAC_VSCODE_COMMENT() else WIN_VSCODE_COMMENT(); break;
+      case ME_VSCODE_UNCOMMENT: if (macos_mode) MAC_VSCODE_UNCOMMENT() else WIN_VSCODE_UNCOMMENT(); break;
       case ME_VSCODE_CTRL_P: if (macos_mode) COMMAND(XKEY(X_P)) else CTRL(XKEY(X_P)); break;
       case ME_VSCODE_SHIFT_CTRL_P: if (macos_mode) SHIFT(COMMAND(XKEY(X_P))) else SHIFT(CTRL(XKEY(X_P))); break;
       case RGB_SLD: rgblight_mode(1); break;
